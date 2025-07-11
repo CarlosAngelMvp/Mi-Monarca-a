@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Despertar del Monarca</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      font-family: 'Segoe UI', sans-serif;
+      color: #00ffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .panel {
+      border: 2px solid #00ffff;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.85);
+      box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff inset;
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+      animation: flicker 1.5s infinite alternate;
+      border-radius: 10px;
+      z-index: 2;
+    }
+    @keyframes flicker {
+      0% { opacity: 0.95; }
+      100% { opacity: 1; }
+    }
+    .panel h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00ffff;
+    }
+    .panel p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      text-shadow: 0 0 8px #00ffff;
+    }
+    .btn-container {
+      display: flex;
+      justify-content: space-around;
+    }
+    .btn {
+      padding: 10px 25px;
+      font-size: 1rem;
+      color: #00ffff;
+      background: transparent;
+      border: 2px solid #00ffff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px #00ffff;
+    }
+    .btn:hover {
+      background: #00ffff;
+      color: black;
+    }
+    .hidden {
+      display: none;
+    }
+    .awakening {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(0,255,255,0.2), transparent);
+      color: #ffb6c1;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 1;
+      animation: fadeIn 2s ease-in-out forwards;
+    }
+    .awakening h2 {
+      font-size: 2rem;
+      color: #ffb6c1;
+      text-shadow: 0 0 10px #ff99cc;
+    }
+    .awakening p {
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    #final-btn {
+      margin-top: 25px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: 2px solid #ffb6c1;
+      background: transparent;
+      color: #ffb6c1;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ffb6c1;
+    }
+    #final-btn:hover {
+      background: #ffb6c1;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="panel" id="panel">
+    <h2>SYSTEM LOG</h2>
+    <p id="message">Bienvenido, Monarca Carlos</p>
+    <div class="btn-container">
+      <button class="btn" onclick="nextMessage('yes')">Yes</button>
+      <button class="btn" onclick="nextMessage('no')">No</button>
+    </div>
+  </div>  <div class="awakening" id="awakening">
+    <h2>✦ VÍNCULO RECONOCIDO ✦</h2>
+    <p>El Sistema ha reconocido tu vínculo...</p>
+    <p>Has despertado no solo como Monarca...</p>
+    <p>Sino como protector del corazón de Aly 💖</p>
+    <p><strong>Estado:</strong> Contrato Eterno</p>
+    <p><strong>Emoción:</strong> 💖 TE QUIERO 💖</p>
+    <p><strong>Música Vinculada:</strong> Die With A Smile</p>
+    <button id="final-btn" onclick="finalAction()">Protegeré a Aly, pase lo que pase</button>
+  </div><audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio> <audio id="bgMusic" src="die-with-a-smile.mp3" loop preload="auto"></audio>
+
+  <script>
+    const messages = [
+      "Bienvenido, Monarca Carlos",
+      "¿Deseas continuar con el despertar?",
+      "Sin retorno. El proceso activará el Sistema completo.",
+      "Conexión a la Sombra Principal...",
+      "Has recibido el poder de un Monarca.",
+      "¿Aceptarás el contrato eterno?"
+    ];
+
+    let index = 0;
+    const msgElement = document.getElementById('message');
+    const clickSound = document.getElementById('clickSound');
+    const bgMusic = document.getElementById('bgMusic');
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.addEventListener('click', () => {
+        if (bgMusic.paused) {
+          bgMusic.volume = 0.7;
+          bgMusic.play().catch(err => console.log("Music error:", err));
+        }
+      }, { once: true });
+    });
+
+    function nextMessage(choice) {
+      clickSound.play();
+      if (choice === 'yes') {
+        index++;
+        if (index < messages.length) {
+          msgElement.textContent = messages[index];
+        } else {
+          document.getElementById('panel').style.display = 'none';
+          document.getElementById('awakening').style.display = 'flex';
+        }
+      } else {
+        msgElement.textContent = "Desconexión del sistema en curso...";
+        document.querySelector('.btn-container').classList.add('hidden');
+      }
+    }
+
+    function finalAction() {
+      alert("Sistema Vinculado con Aly. Modo Protección activado. 💖");
+    }
+  </script></body>
+  </html>
